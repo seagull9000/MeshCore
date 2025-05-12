@@ -8,6 +8,7 @@ void genericBuzzer::begin() {
       digitalWrite(PIN_BUZZER_EN, HIGH);
     #endif
 
+    quiet(false);
     pinMode(PIN_BUZZER, OUTPUT);
     startup();
 }
@@ -17,9 +18,12 @@ void genericBuzzer::play(const char *melody) {
     {
         rtttl::stop();
     }
+
+    if (_is_quiet) return;
+
     rtttl::begin(PIN_BUZZER,melody);
-    Serial.println("DBG: Playing melody");
-  
+//    Serial.print("DBG: Playing melody - isQuiet: ");
+//    Serial.println(isQuiet());
 }
 
 bool genericBuzzer::isPlaying() {
@@ -36,4 +40,12 @@ void genericBuzzer::startup() {
 
 void genericBuzzer::shutdown() {
     play(shutdown_song);
+}
+
+void genericBuzzer::quiet(bool buzzer_state) {
+    _is_quiet = buzzer_state;
+}
+
+bool genericBuzzer::isQuiet() {
+    return _is_quiet;
 }
