@@ -17,6 +17,7 @@
 #include "NodePrefs.h"
 #include <RTClib.h>
 #include <target.h>
+#include "buzzer.h"
 
 /* ---------------------------------- CONFIGURATION ------------------------------------- */
 
@@ -85,6 +86,11 @@
   #include "UITask.h"
 
   static UITask ui_task(&board);
+#endif
+
+#ifdef PIN_BUZZER
+  #include "buzzer.h"
+  genericBuzzer buzzer;
 #endif
 
 // Believe it or not, this std C function is busted on some platforms!
@@ -505,7 +511,11 @@ class MyMesh : public BaseChatMesh {
   }
 
   void soundBuzzer() {
-    // TODO
+  #if defined(PIN_BUZZER)
+    // gemini's pick
+    buzzer.play("MsgRcv3:d=4,o=6,b=200:32e,32g,32b,16c7");
+    //Serial.println("DBG:  Buzzzzzz");
+  #endif
   }
 
 protected:
@@ -1574,6 +1584,11 @@ public:
     ui_task.setHasConnection(_serial->isConnected());
     ui_task.loop();
   #endif
+
+  #ifdef PIN_BUZZER
+    if (buzzer.isPlaying())  buzzer.loop();
+  #endif
+
   }
 };
 
@@ -1640,6 +1655,10 @@ void setup() {
   Serial.begin(115200);
 
   board.begin();
+
+#ifdef PIN_BUZZER
+  buzzer.begin();
+#endif
 
 #ifdef HAS_UI
   DisplayDriver* disp = NULL;
@@ -1739,4 +1758,6 @@ void setup() {
 void loop() {
   the_mesh.loop();
   sensors.loop();
+
+
 }
