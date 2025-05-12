@@ -1,3 +1,4 @@
+#ifdef PIN_BUZZER
 #include "buzzer.h"
 
 void genericBuzzer::begin() {
@@ -49,3 +50,5 @@ void genericBuzzer::quiet(bool buzzer_state) {
 bool genericBuzzer::isQuiet() {
     return _is_quiet;
 }
+
+#endif  // ifdef PIN_BUZZER

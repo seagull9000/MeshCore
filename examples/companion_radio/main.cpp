@@ -17,7 +17,6 @@
 #include "NodePrefs.h"
 #include <RTClib.h>
 #include <target.h>
-#include "buzzer.h"
 
 /* ---------------------------------- CONFIGURATION ------------------------------------- */
 
