@@ -66,6 +66,8 @@
     #include <helpers/ui/ST7735Display.h>
   #elif ST7789
     #include <helpers/ui/ST7789Display.h>
+  #elif SH1106
+    #include <helpers/ui/SH1106Display.h>
   #elif defined(HAS_GxEPD)
     #include <helpers/ui/GxEPDDisplay.h>
   #else
@@ -107,11 +109,11 @@ static uint32_t _atoi(const char* sp) {
 #define FIRMWARE_VER_CODE    5
 
 #ifndef FIRMWARE_BUILD_DATE
-  #define FIRMWARE_BUILD_DATE   "9 May 2025"
+  #define FIRMWARE_BUILD_DATE   "17 May 2025"
 #endif
 
 #ifndef FIRMWARE_VERSION
-  #define FIRMWARE_VERSION   "v1.6.0"
+  #define FIRMWARE_VERSION   "v1.6.1"
 #endif
 
 #define CMD_APP_START              1
